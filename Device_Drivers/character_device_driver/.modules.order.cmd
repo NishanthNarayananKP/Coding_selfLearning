@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LKMS/character_device_driver/modules.order := {   echo /home/nishanth/Desktop/LKMS/character_device_driver/chardev.ko; :; } | awk '!x[$$0]++' - > /home/nishanth/Desktop/LKMS/character_device_driver/modules.order

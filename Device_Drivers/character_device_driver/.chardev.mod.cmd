@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LKMS/character_device_driver/chardev.mod := { echo  /home/nishanth/Desktop/LKMS/character_device_driver/chardev.o;  echo; } > /home/nishanth/Desktop/LKMS/character_device_driver/chardev.mod

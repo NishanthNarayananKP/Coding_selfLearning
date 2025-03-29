@@ -1,0 +1,32 @@
+sudo insmod chardev.ko
+# Verify the module is loaded
+dmesg | tail
+
+
+dmesg | grep mychardev
+# The output will display something like:
+# mychardev: Registered with major number 240
+# Here, `240` is the major number.
+
+
+
+
+sudo mknod /dev/mychardev c <major_number> 0
+sudo chmod 666 /dev/mychardev
+
+
+###########
+##write and read
+
+echo "Hello, Kernel!" > /dev/mychardev
+cat /dev/mychardev
+
+
+#permission denied error
+
+sudo chmod 666 /dev/mychardev
+
+
+
+make clean && make
+sudo rmmod mychardev
