@@ -1,0 +1,38 @@
+# Basic Loadable Kernel Module (LKM)
+
+## Description
+This is a simple Linux kernel module that prints messages when inserted and removed.
+
+## Compilation
+To compile the module, run:
+```bash
+make
+```
+
+## Loading the Module
+To insert the module into the kernel, use:
+```bash
+sudo insmod basic_lkm.ko
+```
+
+## Checking Kernel Messages
+To verify that the module has been loaded, check the kernel logs:
+```bash
+dmesg | tail -n 20
+```
+Or check the kernel log file:
+```bash
+sudo cat /var/log/kern.log | tail -n 20
+```
+
+## Removing the Module
+To remove the module from the kernel, use:
+```bash
+sudo rmmod basic_lkm
+```
+
+## Cleaning Up
+To clean up the compiled files:
+```bash
+make clean
+

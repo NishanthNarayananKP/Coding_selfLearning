@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LKMS/LKM1/basic_lkm.ko := ld -r  -m elf_x86_64 -z noexecstack   --build-id=sha1  -T scripts/module.lds -o /home/nishanth/Desktop/LKMS/LKM1/basic_lkm.ko /home/nishanth/Desktop/LKMS/LKM1/basic_lkm.o /home/nishanth/Desktop/LKMS/LKM1/basic_lkm.mod.o;  true
