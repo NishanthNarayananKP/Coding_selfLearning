@@ -10,13 +10,14 @@
 int main()
 {
 	int x = 0x01 ;
-	char *c = &x ;
+	char *c = (char*)&x ;
 	if( *c == 1){
 		printf("Little endian \n");
 	}
 	else{
 		printf("Big endian \n");
 	}
+	//if needed can print bytes in order to verify endianess
 	return 0 ;
 
 }
