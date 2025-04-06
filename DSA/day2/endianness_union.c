@@ -2,7 +2,7 @@
  * Author       : Nishanth Narayanan Kp
  * Date         : 2025-04-06 10:00 AM
  * Program Name : endianness_union.c
- * Description  : Detects system endianness using union and byte array
+ * Description  : Detects system endianness using union and byte array more safe than low level pointer method
  ***************************************************************/
 
 #include <stdio.h>
