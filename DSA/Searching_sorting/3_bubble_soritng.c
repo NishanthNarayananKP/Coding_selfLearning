@@ -14,11 +14,13 @@
 int main()
 {
 	int i , j , temp ;
-	int swap_flag ; // optimize by adding flag to avoid sorting again in a sorted array
+	int swap_flag ; // optimize by adding flag to avoid sorting again in a sorted array , can exit already sorted array
 	int arr[SIZE] = { 11,14,6,52,47,25,1,98,21,8};
-	for( i = 0; i< SIZE-1 ; i++){
+	for( i = 0; i< SIZE ; i++){
 		swap_flag = 0; 
-		for(j = 0 ;j <SIZE-1; j++){
+		//for(j = 0 ;j <SIZE-1; j++){
+		// Reduce number of passes by adding i to condition since largest element will be end of array during each iteration
+		for (j = 0; j < SIZE-i; j++){
 			if( arr[j] > arr[j+1]){
 				temp = arr[j] ;
 				arr[j] = arr[j+1];	
@@ -30,7 +32,7 @@ int main()
 	}
 
 	printf("Sorted Array is : \n");
-	for(i = 0 ; i< SIZE - 1; i++){
+	for(i = 0 ; i< SIZE; i++){
 		printf("%d  " ,arr[i]);
 		}
 	printf("\n");

@@ -16,7 +16,7 @@ int main()
 	int i , j , temp ;
 	int a[SIZE] = { 11,14,6,52,47,25,1,98,21,8};
 	
-	for (i = 0; i < SIZE - 1; i++) {
+	for (i = 0; i < SIZE; i++) {
 		int min_idx = i;
 		for (j = i + 1; j < SIZE; j++) {
 			if (a[j] < a[min_idx]) {
@@ -34,7 +34,7 @@ int main()
 
 
 	printf("Sorted Array : \n");
-	for( i = 0 ;i<SIZE-1;i++){
+	for( i = 0 ;i<SIZE;i++){
 		printf("%d ",a[i] );
 	}
 	printf("\n");

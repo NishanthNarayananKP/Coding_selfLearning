@@ -17,8 +17,8 @@ int main()
 	int swap_flag ; // optimize by adding flag to avoid sorting again in a sorted array
 	int a[SIZE] = { 11,14,6,52,47,25,1,98,21,8};
 	
-	for(i = 0 ; i<SIZE-1 ;i++){
-		for(j = i+1 ; j<SIZE-1 ;j++){
+	for(i = 0 ; i<SIZE ;i++){
+		for(j = i+1 ; j<SIZE ;j++){
 			if(a[i] > a[j] )
 			{
 				temp = a[i] ;
@@ -28,7 +28,7 @@ int main()
 		}
 	}
 	printf("Sorted Array : \n");
-	for( i = 0 ;i<SIZE-1;i++){
+	for( i = 0 ;i<SIZE;i++){
 		printf("%d ",a[i] );
 	}
 	printf("\n");
