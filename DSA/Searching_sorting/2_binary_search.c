@@ -69,4 +69,24 @@ int binary_search(int arr[], int size, int target) {
  *
  */
 
+/*
+ *
+ * # Binary Search Algorithm
+
+* Step 1: Initialize two variables:
+  - low = 0
+  - high = size - 1
+
+* Step 2: Repeat while low is less than or equal to high
+  - Calculate mid = low + (high - low) divided by 2
+  - If array[mid] is equal to the target
+      - Return mid as the index
+  - Else if array[mid] is less than target
+      - Set low = mid + 1
+  - Else
+      - Set high = mid - 1
+
+* Step 3: If the loop ends without finding the element
+  - Return -1 to indicate element not found
+*/
 
