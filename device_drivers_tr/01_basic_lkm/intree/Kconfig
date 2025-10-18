@@ -1,0 +1,5 @@
+menu "menu my lkms"
+config CUSTOM_BASIC_LKM
+	tristate "helloworld basic lkm"
+	default n
+endmenu

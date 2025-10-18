@@ -1,0 +1,27 @@
+Steps for intree building : module will be part of kernel src tree
+
+================================================================================
+Steps :
+
+1) Create a new folder in drivers/char/my_custom_dev
+2) copy basic_lkm.c 
+3) Create a custom kconfig with below entries
+
+	menu "Custom LKM"
+		config CUSTOM_BASIC_HELLO_WORLD_LKM
+			tristate "hello world lkm"
+			default m
+	endmenu
+
+4) add local kconfig entry to upperkconfig
+	there will be a Kconfig inside /drvers/char . add source <path to custom kconfig>
+5) create a local makefile and link with Upper makefile
+	obj-<config-item> += <module>.o
+
+	in upper makefile mention dir since no config use option obj-y
+	Eg: obj-y += my_custom_lkm
+
+Instll ncurses : do menuconfig from linux main
+DOWNLOAD LINUX SRC: wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.15.tar.xz
+REFERENCE : https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt 
+
