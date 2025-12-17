@@ -1,0 +1,2 @@
+/home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/chr.o
+

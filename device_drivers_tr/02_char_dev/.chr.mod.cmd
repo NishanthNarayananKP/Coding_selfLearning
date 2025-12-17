@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/chr.mod := { echo  /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/chr.o;  echo; } > /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/chr.mod

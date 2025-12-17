@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/Module.symvers := sed 's/\.ko$$/\.o/' /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/modules.order | scripts/mod/modpost -m -a  -o /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/Module.symvers -e -i Module.symvers   -T -

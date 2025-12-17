@@ -1,0 +1,1 @@
+cmd_/home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/modules.order := {   echo /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/chr.ko; :; } | awk '!x[$$0]++' - > /home/nishanth/Desktop/LDD/Coding_selfLearning/device_drivers_tr/02_char_dev/modules.order
