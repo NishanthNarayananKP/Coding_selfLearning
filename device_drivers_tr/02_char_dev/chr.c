@@ -4,6 +4,7 @@
 #include <linux/device.h>
 #include <linux/kdev_t.h>
 #include <linux/uaccess.h>
+#include <linux/err.h>
 
 #define DEV_MEM_SIZE 512
 
@@ -83,10 +84,12 @@ ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, lof
 }
 int pcd_open (struct inode *inode, struct file *filp)
 {
+	pr_info("openig dev\n");
 	return 0 ;
 }
 int pcd_release (struct inode *inode, struct file *filp)
 {
+	pr_info("released dev\n");
 	return 0 ;
 }
 
@@ -106,22 +109,59 @@ struct device* device_pcd ;
 
 static int __init pcd_driver_init(void)
 {
+	int ret ;
+	pr_info("driver init \n");
 	/*1. allocate regions for single noe */
-	alloc_chrdev_region(&device_number , 0 , 1 ,"pcd_devices" );
+	ret = alloc_chrdev_region(&device_number , 0 , 1 ,"pcd_devices" );
+	if(ret < 0)
+	{
+		goto out ;
+	}
 	pr_info("%s Major and minor : %d:%d" ,__func__ , MAJOR(device_number) , MINOR(device_number) ) ;
+	
 	/*2. init cdev and then assign owner memset 0 happens durig init*/
 	cdev_init(&pcd_cdev , &pcd_fops) ;
+	
 	/*3. register with VFS*/
 		
 	pcd_cdev.owner = THIS_MODULE ;
-	cdev_add(&pcd_cdev , device_number,1);
+	ret = cdev_add(&pcd_cdev , device_number,1);
+	if(ret < 0 )
+		goto unreg_chrdev ;
+	
 	/*4.  create class in sys/class */
 	class_pcd = class_create(THIS_MODULE,"pcd_class");
+	/*IS_ERR macro used since returning a pointer which is converted from intval*/
+	if(IS_ERR(class_pcd) )
+	{
+		pr_err("class creation failed\n");
+		/*convert , can also use ERR_PTR*/
+		ret = PTR_ERR(class_pcd);
+		goto cdev_del;
+	}
+	
 	/* device file cretaion - popluates sysfs */
 	device_pcd = device_create(class_pcd , NULL ,device_number, NULL ,"pcd");
+	if(IS_ERR(device_pcd) )
+        {
+                pr_err("device creation failed\n");
+                /*convert , can also use ERR_PTR*/
+                ret = PTR_ERR(device_pcd);
+                goto class_del;
+        }
 	pr_info("init success\n");
 
 	return 0 ;
+class_del:
+	class_destroy(class_pcd);
+cdev_del:
+        cdev_del(&pcd_cdev);
+unreg_chrdev:
+	unregister_chrdev_region(device_number ,1);
+out:
+	pr_info("module init failed");
+	return ret;
+
 }
 
 static void __exit pcd_driver_exit(void){
