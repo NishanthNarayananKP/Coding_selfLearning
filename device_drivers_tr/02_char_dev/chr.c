@@ -19,6 +19,30 @@ struct cdev pcd_cdev ;
 /*template could be found in linux src path : include/linu/fs.h -- check file operations*/
 loff_t pcd_lseek (struct file *filp, loff_t off, int whence)
 {
+	loff_t temp;
+	pr_info("lseek requested\n");
+
+	switch(whence){
+		case SEEK_SET:
+			if( (off > DEV_MEM_SIZE) || (off < 0))
+				return -EINVAL;
+			filp->f_pos = off ;
+			break;
+		case SEEK_CUR:
+			temp = filp->f_pos + off;
+			if( (temp > DEV_MEM_SIZE) || (temp < 0))
+                                return -EINVAL;
+			filp->f_pos = temp;
+			break;
+		case SEEK_END:
+			temp = DEV_MEM_SIZE + off;
+                        if( (temp > DEV_MEM_SIZE) || (temp < 0))
+                                return -EINVAL;
+			filp->f_pos=temp;
+			break;
+		default:
+			return -EINVAL;
+	}
 	return 0 ;
 }
 ssize_t pcd_read (struct file *filp, char __user *buff, size_t count, loff_t *f_pos)
