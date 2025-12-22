@@ -3,6 +3,7 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/kdev_t.h>
+#include <linux/uaccess.h>
 
 #define DEV_MEM_SIZE 512
 
@@ -22,11 +23,39 @@ loff_t pcd_lseek (struct file *filp, loff_t off, int whence)
 }
 ssize_t pcd_read (struct file *filp, char __user *buff, size_t count, loff_t *f_pos)
 {
-	return 0 ;
+	pr_info("read requested for %zu bytes\n",count);
+	/* Adjust the count */
+	if( (*f_pos + count ) > DEV_MEM_SIZE) {
+		count = DEV_MEM_SIZE - *f_pos;
+	}
+	/*copy to usr */
+	if( copy_to_user(buff , &dev_buffer[*f_pos] , count ) ){
+		return EFAULT ;
+	}
+
+	/* Update current file position */
+	*f_pos += count ;
+
+	pr_info("successfully read %zu\n",count);
+	return count ;
 }
 ssize_t pcd_write (struct file *filp, const char __user *buff, size_t count, loff_t *f_pos)
 {
-	return 0;
+	pr_info("write count requested %zu\n",count);
+
+	/* Adjust the count */
+        if( (*f_pos + count ) > DEV_MEM_SIZE) {
+                count = DEV_MEM_SIZE - *f_pos;
+        }
+        /*copy from usr */
+        if( copy_from_user( &dev_buffer[*f_pos],buff , count ) ){
+                return EFAULT ;
+        }
+	/* Update current file position */
+        *f_pos += count ;
+
+        pr_info("successfully written %zu\n",count);
+	return count;
 }
 int pcd_open (struct inode *inode, struct file *filp)
 {
